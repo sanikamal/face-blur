@@ -1,7 +1,5 @@
-from multiprocessing.connection import wait
 import cv2
 import mediapipe as mp
-mp_face_detection = mp.solutions.face_detection
 
 def do_face_blur(input_path, output_path):
     """
@@ -15,7 +13,7 @@ def do_face_blur(input_path, output_path):
     """
     image = cv2.imread(input_path)
     # Run MediaPipe Face Detection model
-    with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.5) as face_detection:
+    with mp.solutions.face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.5) as face_detection:
         results = face_detection.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         for detection in results.detections:
             # Extract key points
